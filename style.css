@@ -30,14 +30,14 @@ body {
 }
 
 .container {
-  width: 800px;
+  /*width: 800px;*/
 }
 
 .navbar {
   background-color: var(--navbar-bg-color);
   list-style: none;
   display: flex;
-  padding: 15px 30px;
+  padding: 10px 30px;
 }
 
 .navbar .nav-item {
@@ -55,13 +55,13 @@ body {
 }
 
 .navbar .nav-item .nav-item-icon {
-  width: 45px;
-  height: 45px;
+  width: 40px;
+  height: 40px;
   margin-right: 15px;
 }
 
 .navbar .nav-item h2 {
-  font-size: 2rem;
+  font-size: 1.8rem;
   color: var(--white-text-color);
 }
 
@@ -84,14 +84,38 @@ body {
 }
 
 .navbar .nav-item .nav-btn .nav-btn-icon {
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
 }
-.game-board {
+
+.game-container {
+  position: relative;
+}
+
+.game-container .game-board {
   background-color: var(--game-board-bg-color);
   width: 100vmin;
   height: 90vmin;
   display: grid;
   grid-template-columns: repeat(20, 1fr);
   grid-template-rows: repeat(20, 1fr);
+}
+
+.game-container .overlay {
+  background-color: var(--modal-bg-color);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.game-container .overlay .overlay-text {
+  color: var(--white-text-color);
+  position: relative;
+  top: 50%;
+  left: 50%;
+  text-align: center;
+  transform: translate(-50%, -50%);
+  font-size: 2.5rem;
 }
