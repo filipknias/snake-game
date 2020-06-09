@@ -87,29 +87,11 @@ body {
   width: 30px;
   height: 30px;
 }
-
-.game-container {
-  position: relative;
-}
-
-.game-container #game-board {
+.game-board {
   background-color: var(--game-board-bg-color);
-}
-
-.game-container .overlay {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: var(--modal-bg-color);
-  color: var(--white-text-color);
-}
-
-.game-container .overlay .overlay-text {
-  text-align: center;
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 2.5rem;
+  width: 100vmin;
+  height: 90vmin;
+  display: grid;
+  grid-template-columns: repeat(20, 1fr);
+  grid-template-rows: repeat(20, 1fr);
 }
