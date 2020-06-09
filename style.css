@@ -88,21 +88,28 @@ body {
   height: 30px;
 }
 
-.game-board {
+.game-container {
+  position: relative;
+}
+
+.game-container #game-board {
   background-color: var(--game-board-bg-color);
+}
+
+.game-container .overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
   width: 100%;
-  height: 700px;
-  display: grid;
-  grid-template-columns: repeat(21, 1fr);
-  grid-template-rows: repeat(21, 1fr);
+  height: 100%;
+  background-color: var(--modal-bg-color);
+  color: var(--white-text-color);
 }
 
-.game-board .snake {
-  background-color: var(--snake-color);
-  border: 1px solid var(--border-black-color);
-}
-
-.game-board .food {
-  background-color: var(--food-color);
-  border: 1px solid var(--border-black-color);
+.game-container .overlay .overlay-text {
+  text-align: center;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2.5rem;
 }
