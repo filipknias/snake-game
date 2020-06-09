@@ -6,3 +6,83 @@
   box-sizing: border-box;
   font-family: "Montserrat", sans-serif;
 }
+
+:root {
+  --body-bg-color: #f9f9f9;
+  --navbar-bg-color: #2a8129;
+  --navbar-btn-bg-color: rgba(255, 255, 255, 0.5);
+  --navbar-btn-bg-hover-color: rgba(255, 255, 255, 0.3);
+  --game-board-bg-color: #66b165;
+  --snake-color: #3fef23;
+  --food-color: #fc324b;
+  --modal-bg-color: rgb(0, 0, 0, 0.7);
+  --white-text-color: #ffffff;
+  --black-text-color: #333333;
+}
+
+body {
+  background-color: var(--body-bg-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.container {
+  width: 50%;
+}
+
+.navbar {
+  background-color: var(--navbar-bg-color);
+  list-style: none;
+  display: flex;
+  padding: 15px 30px;
+}
+
+.navbar .nav-item {
+  margin: 0px 20px;
+  display: flex;
+  align-items: center;
+}
+
+.navbar .nav-item:first-child {
+  margin-left: 0px;
+}
+
+.navbar .nav-item:last-child {
+  margin-right: 0px;
+}
+
+.navbar .nav-item .nav-item-icon {
+  width: 45px;
+  height: 45px;
+  margin-right: 15px;
+}
+
+.navbar .nav-item h2 {
+  font-size: 2rem;
+  color: var(--white-text-color);
+}
+
+.navbar .nav-item.item-right {
+  margin-left: auto;
+}
+
+.navbar .nav-item .nav-btn {
+  padding: 15px;
+  background-color: var(--navbar-btn-bg-color);
+  border-radius: 5px;
+  border: 0;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.navbar .nav-item .nav-btn:hover {
+  background-color: var(--navbar-btn-bg-hover-color);
+}
+
+.navbar .nav-item .nav-btn .nav-btn-icon {
+  width: 30px;
+  height: 30px;
+}
