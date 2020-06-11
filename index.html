@@ -28,28 +28,24 @@
         </li>
       </ul>
       <div class="game-container">
-        <div class="overlay hidden">
-          <h1 class="overlay-text">Press SPACE to start game</h1>
-          <div class="overlay-modal">
-            <img src="./images/game_over.jpg" class="modal-img-top" />
+        <div class="overlay">
+          <h1 class="overlay-text">
+            Press <span class="keyboard-btn">SPACE</span> to start game !
+          </h1>
+          <div class="overlay-modal hidden">
             <h2 class="modal-header">Game Over</h2>
             <div class="score-group">
               <img src="./images/food.svg" class="modal-summary-icon" />
-              <h4 class="score" id="food-summary">0</h4>
+              <h4 class="score">2</h4>
             </div>
             <div class="score-group">
               <img src="./images/trophy.svg" class="modal-summary-icon" />
-              <h4 class="score" id="high-score-summary">0</h4>
+              <h4 class="score">2</h4>
             </div>
             <button class="modal-btn" id="play-again-btn">Play Again</button>
           </div>
         </div>
-        <div class="game-board">
-          <div class="snake"></div>
-          <div class="snake"></div>
-          <div class="snake"></div>
-          <div class="food"></div>
-        </div>
+        <canvas id="game-board" width="800" height="800"></canvas>
       </div>
     </div>
   </body>
