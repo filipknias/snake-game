@@ -108,10 +108,6 @@ body {
   justify-content: center;
 }
 
-.game-container .overlay .hidden {
-  display: none;
-}
-
 .game-container .overlay .overlay-text {
   color: var(--white-text-color);
   text-align: center;
@@ -123,7 +119,7 @@ body {
   border-radius: 5px;
   color: #000;
   margin: 0px 10px;
-  font-size: 2.2rem;
+  font-size: 2rem;
 }
 
 .overlay .overlay-modal {
@@ -181,6 +177,12 @@ body {
 
 .overlay .overlay-modal .modal-btn:hover {
   background-color: var(--btn-bg-hover-color);
+}
+
+.overlay.hidden,
+.overlay-modal.hidden,
+.overlay-text.hidden {
+  display: none;
 }
 
 @media screen and (max-width: 768px) {
