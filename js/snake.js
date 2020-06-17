@@ -1,38 +1,53 @@
-import { hideOverlay, updateScore, deathSummary } from "./utilities.js";
+import {
+  hideOverlay,
+  updateScore,
+  showDeathSummary,
+  showPauseText,
+  updateHighScore,
+} from "./utilities.js";
+
+import { setItem, getItem } from "./storage.js";
 
 export default class Snake {
   constructor(boardId) {
     this.canvas = document.querySelector(boardId);
     this.ctx = this.canvas.getContext("2d");
-    this.snakeSpeed = 150;
+    this.snakeSpeed = 120;
     this.scale = 40;
     this.columns = this.canvas.height / this.scale;
     this.rows = this.canvas.width / this.scale;
-
-    this.snakeDirection = {
-      x: 0,
-      y: -1,
-    };
     this.snakeColor = "#3fef23";
     this.foodColor = "#fc324b";
     this.isPlaying = false;
+    this.isPaused = false;
     this.score = 0;
+    this.highScore = getItem("high-score");
   }
 
   init() {
     //check if game is arleady playing
-    if (this.isPlaying) return;
+    if (this.isPlaying || this.isPaused) return;
     //switch isPlaying to true
     this.isPlaying = true;
+    //set snakeBody to middle of canvas
     this.snakeBody = [
       { x: (this.rows / 2) * this.scale, y: (this.columns / 2) * this.scale },
     ];
+    //set snakeDirection to UP
+    this.snakeDirection = {
+      x: 0,
+      y: -1,
+    };
+    //randomize snakeFood position
     this.snakeFood = this.getRandomPositionOnCanvas();
     //hide overlay
     hideOverlay();
     //reset score
     this.score = 0;
     updateScore(this.score);
+    //display high score
+    this.highScore = getItem("high-score");
+    updateHighScore(this.highScore);
     //draw food in random place
     this.drawFood();
     //get snake into moving
@@ -62,6 +77,12 @@ export default class Snake {
       this.drawFood();
       //increase score
       this.score++;
+      //check for beating high score
+      if (this.score > this.highScore) {
+        setItem("high-score", this.score);
+        this.highScore = getItem("high-score");
+        updateHighScore(this.highScore);
+      }
       //update score
       updateScore(this.score);
     } else {
@@ -70,7 +91,11 @@ export default class Snake {
     }
 
     //check for fail
-    this.checkForFail();
+    if (this.checkforWall() || this.checkforSnake()) {
+      showDeathSummary(this.score, this.highScore);
+      clearInterval(this.snakeMove);
+      this.isPlaying = false;
+    }
   }
 
   drawSnake() {
@@ -91,7 +116,7 @@ export default class Snake {
     }
   }
 
-  checkForFail() {
+  checkforWall() {
     //check for crush into wall
     if (
       this.snakeBody[0].x > this.canvas.width ||
@@ -99,19 +124,18 @@ export default class Snake {
       this.snakeBody[0].y > this.canvas.height ||
       this.snakeBody[0].y < 0
     ) {
-      deathSummary(this.score, this.highScore);
-      clearInterval(this.snakeMove);
-      this.isPlaying = false;
+      return true;
     }
+  }
+
+  checkforSnake() {
     //check for crush into snake
     for (let i = 4; i < this.snakeBody.length; i++) {
       if (
         this.snakeBody[0].x === this.snakeBody[i].x &&
         this.snakeBody[0].y === this.snakeBody[i].y
       ) {
-        deathSummary(this.score, this.highScore);
-        clearInterval(this.snakeMove);
-        this.isPlaying = false;
+        return true;
       }
     }
   }
@@ -132,5 +156,45 @@ export default class Snake {
       this.scale,
       this.scale
     );
+  }
+
+  pauseGame() {
+    //get status attribute from button
+    const buttonStatus = document
+      .querySelector("#pause-play-btn")
+      .getAttribute("data-button");
+    //if game is paused
+    if (buttonStatus === "pause") {
+      //set isPaused to true
+      this.isPaused = true;
+      //show pause text
+      showPauseText();
+      //stop game
+      clearInterval(this.snakeMove);
+      //set button data attribute to play
+      document
+        .querySelector("#pause-play-btn")
+        .setAttribute("data-button", "play");
+      //set button icon to play
+      document.querySelector(".nav-btn-icon").src = `./images/play.svg`;
+    }
+    //if game is playing
+    else if (buttonStatus === "play") {
+      //set isPaused to false
+      this.isPaused = false;
+      //set button data attribute to pause
+      document
+        .querySelector("#pause-play-btn")
+        .setAttribute("data-button", "pause");
+      //hide overlay
+      hideOverlay();
+      //start game interval
+      this.snakeMove = setInterval(() => {
+        this.updateSnake();
+        this.drawSnake();
+      }, this.snakeSpeed);
+      //set button icon to pause
+      document.querySelector(".nav-btn-icon").src = `./images/pause.svg`;
+    }
   }
 }

@@ -76,6 +76,9 @@ body {
   outline: none;
   cursor: pointer;
   transition: all 0.3s ease;
+}
+
+.navbar .nav-item .nav-btn.hidden {
   display: none;
 }
 
@@ -140,9 +143,6 @@ body {
 .overlay .overlay-modal .modal-header {
   text-align: center;
   font-size: 2rem;
-  /*font-weight: bold;
-  color: var(--summary-color);
-  text-transform: uppercase;*/
   margin: 20px 0px 10px 0px;
 }
 
